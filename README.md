@@ -22,7 +22,7 @@ again more and more, but for now, I'll stick with Go.
 go run ./cmd/aoc2020 solve --day=1 --part=1 --input-file=input/day01/part1
 805731
 
-# With Into messages
+# With Info messages
 go run ./cmd/aoc2020 solve --day=1 --part=1 --input-file=input/day01/part1 --log-level=info
 INFO[0000] Part1: 11.047µs
 805731
