@@ -15,6 +15,25 @@ again more and more, but for now, I'll stick with Go.
 
 **TODO**: Extend this document.
 
+# How to use
+
+```
+# Simple
+go run ./cmd/aoc2020 solve --day=1 --part=1 --input-file=input/day01/part1
+805731
+
+# With Into messages
+go run ./cmd/aoc2020 solve --day=1 --part=1 --input-file=input/day01/part1 --log-level=info
+INFO[0000] Part1: 11.047µs
+805731
+
+# Debug
+go run ./cmd/aoc2020 solve --day=1 --part=1 --input-file=input/day01/part1 --log-level=debug
+DEBU[0000] Calling *day01.Solver => Part1
+INFO[0000] Part1: 7.1µs
+805731
+```
+
 # History
 
 * [2019] => Haskell (~75%)
