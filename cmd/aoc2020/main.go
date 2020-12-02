@@ -43,6 +43,7 @@ func rootCommand() cobra.Command {
 	}
 
 	cmd.AddCommand(solveCommand())
+	cmd.AddCommand(downloadCommand())
 
 	return cmd
 }
