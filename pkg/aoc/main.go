@@ -1,6 +1,7 @@
 package aoc
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -13,7 +14,7 @@ func DownloadInput(year, day, part int) (string, error) {
 	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
 	client := &http.Client{}
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", url, nil)
 	if err != nil {
 		return "", err
 	}
@@ -61,6 +62,6 @@ func ensurePath(path string) {
 
 func ensureDirectory(path string) {
 	if _, err := os.Stat(path); os.IsNotExist(err) {
-		os.Mkdir(path, os.ModePerm)
+		_ = os.Mkdir(path, os.ModePerm)
 	}
 }

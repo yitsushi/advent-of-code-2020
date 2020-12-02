@@ -22,12 +22,12 @@ func (d *Solver) Part1() (string, error) {
 
 		for _, c := range e.Password {
 			if e.Character == c {
-				found += 1
+				found++
 			}
 		}
 
 		if e.Max >= found && found >= e.Min {
-			validPassword += 1
+			validPassword++
 		}
 	}
 
@@ -45,7 +45,7 @@ func (d *Solver) Part2() (string, error) {
 		second := e.Password[e.Max-1] == e.Character
 
 		if first != second {
-			validPassword += 1
+			validPassword++
 		}
 	}
 

@@ -8,6 +8,10 @@ import (
 	"github.com/yitsushi/advent-of-code-2020/pkg/aoc"
 )
 
+const (
+	currentYear = 2020
+)
+
 func downloadCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "download",
@@ -16,7 +20,7 @@ func downloadCommand() *cobra.Command {
 			dayNumber, _ := cmd.Flags().GetInt("day")
 			partNumber, _ := cmd.Flags().GetInt("part")
 
-			output, err := aoc.DownloadInput(2020, dayNumber, partNumber)
+			output, err := aoc.DownloadInput(currentYear, dayNumber, partNumber)
 			if err != nil {
 				logrus.Fatal(err.Error())
 
