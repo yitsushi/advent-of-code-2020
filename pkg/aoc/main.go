@@ -9,6 +9,7 @@ import (
 	"strings"
 )
 
+// DownloadInput downloads and saves the requested input file.
 func DownloadInput(year, day, part int) (string, error) {
 	sessionID := os.Getenv("AOC_SESSION")
 	url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", year, day)
