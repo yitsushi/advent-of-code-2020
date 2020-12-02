@@ -2,6 +2,7 @@ package extra
 
 import (
 	"github.com/yitsushi/advent-of-code-2020/days/day01"
+	"github.com/yitsushi/advent-of-code-2020/days/day02"
 	"github.com/yitsushi/advent-of-code-2020/pkg/puzzle"
 )
 
@@ -10,6 +11,7 @@ func DaySelector(day int) (puzzle.Day, error) {
 	solvers := []puzzle.Day{
 		nil,
 		&day01.Solver{},
+		&day02.Solver{},
 	}
 
 	if len(solvers) <= day || day < 0 {
