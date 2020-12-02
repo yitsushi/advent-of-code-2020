@@ -13,6 +13,9 @@ issues:
     - errcheck
     - gosec
     - dupl
+    - funlen
+    - scopelint
+    - testpackage
   - path: cmd/
     linters:
     - exhaustive
