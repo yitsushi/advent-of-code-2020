@@ -8,10 +8,6 @@ import (
 	"github.com/yitsushi/advent-of-code-2020/pkg/aoc"
 )
 
-const (
-	currentYear = 2020
-)
-
 func downloadCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "download",

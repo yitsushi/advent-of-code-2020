@@ -8,6 +8,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const (
+	currentYear = 2020
+)
+
 func rootCommand() cobra.Command {
 	cmd := cobra.Command{
 		Use:   "aoc2020",
@@ -44,6 +48,7 @@ func rootCommand() cobra.Command {
 
 	cmd.AddCommand(solveCommand())
 	cmd.AddCommand(downloadCommand())
+	cmd.AddCommand(submitCommand())
 
 	return cmd
 }
