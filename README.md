@@ -32,6 +32,12 @@ Session is required to download your input file and submit your solution:
 export AOC_SESSION="................."
 ```
 
+### Generate basic file and directory structure for a day
+
+```
+❯ go run ./cmd/aoc2020  scaffold --day=4
+```
+
 ### Download Input File
 
 ```

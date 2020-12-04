@@ -49,6 +49,7 @@ func rootCommand() cobra.Command {
 	cmd.AddCommand(solveCommand())
 	cmd.AddCommand(downloadCommand())
 	cmd.AddCommand(submitCommand())
+	cmd.AddCommand(scaffoldCommand())
 
 	return cmd
 }

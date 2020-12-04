@@ -6,7 +6,6 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"strings"
 )
 
 // DownloadInput downloads and saves the requested input file.
@@ -48,21 +47,4 @@ func DownloadInput(year, day, part int) (string, error) {
 	_, err = io.Copy(f, resp.Body)
 
 	return targetFile, err
-}
-
-func ensurePath(path string) {
-	parts := strings.Split(path, "/")
-
-	path = "."
-
-	for _, part := range parts {
-		path = fmt.Sprintf("%s/%s", path, part)
-		ensureDirectory(path)
-	}
-}
-
-func ensureDirectory(path string) {
-	if _, err := os.Stat(path); os.IsNotExist(err) {
-		_ = os.Mkdir(path, os.ModePerm)
-	}
 }
