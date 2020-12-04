@@ -7,9 +7,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strings"
-
-	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -17,9 +16,13 @@ const (
 	CorrectAnswer = "That's the right answer!"
 	// AlreadySolved means our solution is already there.
 	AlreadySolved = "Did you already complete it?"
+	// WrongAnswer means the solution was incorrect.
+	WrongAnswer = "That's not the right answer;"
+	// WaitMore means you have to wait more.
+	WaitMore = "You gave an answer too recently;"
 )
 
-func correctOrNot(content string) (bool, string) {
+func correctOrNot(content string) (bool, error) {
 	valid := []string{
 		CorrectAnswer,
 		AlreadySolved,
@@ -27,11 +30,43 @@ func correctOrNot(content string) (bool, string) {
 
 	for _, check := range valid {
 		if strings.Contains(content, check) {
-			return true, check
+			return true, nil
 		}
 	}
 
-	return false, ""
+	if strings.Contains(content, WrongAnswer) {
+		re := regexp.MustCompile(
+			`That's not the right answer; (?P<Hint>[^\.]+)..*(?P<Wait>Please wait [^.]+).`,
+		)
+
+		result := re.FindStringSubmatch(content)
+
+		return false, IncorrectAnswer{
+			Hint: result[1],
+			Wait: result[2],
+		}
+	}
+
+	if strings.Contains(content, WaitMore) {
+		re := regexp.MustCompile(
+			`You gave an answer too recently; you .* again. (?P<Wait>[^\.]+).`,
+		)
+
+		result := re.FindStringSubmatch(content)
+
+		return false, IncorrectAnswer{
+			Hint: "You gave an answer too recently",
+			Wait: result[1],
+		}
+	}
+
+	re := regexp.MustCompile(`<article><p>(?P<Content>.*)</p></article>`)
+	result := re.FindStringSubmatch(content)
+
+	return false, IncorrectAnswer{
+		Hint: result[1],
+		Wait: "",
+	}
 }
 
 // SubmitSolution downloads and saves the requested input file.
@@ -69,14 +104,5 @@ func SubmitSolution(year, day, part int, solution string) (bool, error) {
 
 	content, _ := ioutil.ReadAll(resp.Body)
 
-	logrus.Debugf("%s", content)
-
-	valid, text := correctOrNot(string(content))
-	if !valid {
-		err = IncorrectAnswer{Hint: "N/A"}
-	}
-
-	logrus.Info(text)
-
-	return valid, err
+	return correctOrNot(string(content))
 }

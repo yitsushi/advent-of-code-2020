@@ -12,21 +12,32 @@ import (
 func TestSolver_Part2(t *testing.T) {
 	day := day04.Solver{}
 
-	day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	day.SetInput(ioutil.NopCloser(strings.NewReader(exampleInput)))
 
 	out, err := day.Part2()
 
-	assert.Error(t, err)
-	assert.Equal(t, "", out)
+	assert.NoError(t, err)
+	assert.Equal(t, "2", out)
 }
 
-func TestSolver_Part2_noSolution(t *testing.T) {
+func TestSolver_Part2_allInvalid(t *testing.T) {
 	day := day04.Solver{}
 
-	day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	day.SetInput(ioutil.NopCloser(strings.NewReader(allInvalid)))
 
 	out, err := day.Part2()
 
-	assert.Error(t, err)
-	assert.Equal(t, "", out)
+	assert.NoError(t, err)
+	assert.Equal(t, "0", out)
+}
+
+func TestSolver_Part2_allValid(t *testing.T) {
+	day := day04.Solver{}
+
+	day.SetInput(ioutil.NopCloser(strings.NewReader(allValid)))
+
+	out, err := day.Part2()
+
+	assert.NoError(t, err)
+	assert.Equal(t, "4", out)
 }

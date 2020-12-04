@@ -38,7 +38,7 @@ func submitCommand() *cobra.Command {
 
 			valid, err := aoc.SubmitSolution(currentYear, dayNumber, partNumber, solution)
 			if err != nil {
-				fmt.Printf("Error :( => %s", err.Error())
+				fmt.Printf("%s\n", err.Error())
 
 				return
 			}

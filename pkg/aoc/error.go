@@ -25,8 +25,9 @@ func (e SubmitError) Error() string {
 // IncorrectAnswer occurs when the provided answer is not correct.
 type IncorrectAnswer struct {
 	Hint string
+	Wait string
 }
 
 func (e IncorrectAnswer) Error() string {
-	return fmt.Sprintf("Submit error: %s", e.Hint)
+	return fmt.Sprintf("Error: %s\n%s", e.Hint, e.Wait)
 }
