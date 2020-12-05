@@ -11,14 +11,19 @@ import (
 
 func TestSolver_SetInput(t *testing.T) {
 	day := day05.Solver{}
-	err := day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	err := day.SetInput(ioutil.NopCloser(strings.NewReader("FFBLR")))
 
 	assert.NoError(t, err)
 }
 
 func TestSolver_SetInput_invalid(t *testing.T) {
 	day := day05.Solver{}
-	err := day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	err := day.SetInput(ioutil.NopCloser(strings.NewReader("AAD")))
+	expected := day05.InvalidTicket{Serial: "AAD", Position: 0, Character: 'A'}
 
-	assert.NoError(t, err)
+	assert.Error(t, err)
+	assert.Equal(t,
+		err.Error(),
+		expected.Error(),
+	)
 }
