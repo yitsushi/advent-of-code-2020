@@ -8,6 +8,7 @@ import (
 	"github.com/yitsushi/advent-of-code-2020/pkg/bullshit"
 )
 
+// Matcher parses a sentence into a Rule.
 func Matcher(sentence string) Rule {
 	mainMatcher := regexp.MustCompile(`([a-z]+) ([a-z]+) bags contain`)
 	subMatcher := regexp.MustCompile(`(\d+) ([a-z]+) ([a-z]+) bag`)

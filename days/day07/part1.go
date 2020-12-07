@@ -54,9 +54,7 @@ func (d *Solver) checkBag(bag Bag) [][]Bag {
 	current := []Bag{bag}
 
 	for _, content := range d.inventory.Get(bag.Name) {
-		var rest [][]Bag
-
-		rest = d.checkBag(content.Bag)
+		rest := d.checkBag(content.Bag)
 
 		for _, rest := range rest {
 			bags = append(bags, append(current, rest...))

@@ -13,7 +13,7 @@ func (d *Solver) Part2() (string, error) {
 	count := d.fetch(d.target)
 
 	// Subtract one as we don't count the shiny gold one.
-	count -= 1
+	count--
 
 	return fmt.Sprintf("%d", count), nil
 }
