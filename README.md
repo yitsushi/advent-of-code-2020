@@ -1,3 +1,8 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/yitsushi/advent-of-code-2020)](https://goreportcard.com/report/github.com/yitsushi/advent-of-code-2020)
+[![Coverage Status](https://coveralls.io/repos/github/yitsushi/advent-of-code-2020/badge.svg?branch=main)](https://coveralls.io/github/yitsushi/advent-of-code-2020?branch=main)
+[![GoDoc](https://img.shields.io/badge/pkg.go.dev-doc-blue)](http://pkg.go.dev/github.com/yitsushi/advent-of-code-2020)
+
+
 [Last year][2019], I tried to extend my knowledge and tried to solve
 all puzzles with Haskell. Sadly, I had no time to learn more and more
 because I don't use it daily as part of my job.
