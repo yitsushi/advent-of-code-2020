@@ -7,16 +7,26 @@ import (
 
 // Solver is the main solver.
 type Solver struct {
-	input []string
+	machine Machine
 }
 
 // SetInput receives the input and parses its content.
 func (d *Solver) SetInput(input io.Reader) error {
 	scanner := bufio.NewScanner(input)
 
+	source := []Instruction{}
+
 	for scanner.Scan() {
-		d.input = append(d.input, scanner.Text())
+		ins, err := ParseInstruction(scanner.Text())
+		if err != nil {
+			return err
+		}
+
+		source = append(source, ins)
 	}
+
+	d.machine.Load(source)
+	d.machine.Reset()
 
 	return scanner.Err()
 }
