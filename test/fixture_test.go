@@ -3,7 +3,7 @@ package test_test
 import (
 	"testing"
 
-	"github.com/yitsushi/go-misskey/test"
+	"github.com/yitsushi/advent-of-code-2020/test"
 )
 
 func TestLoadFixture_found(t *testing.T) {
