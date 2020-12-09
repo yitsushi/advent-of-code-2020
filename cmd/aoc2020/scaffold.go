@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/yitsushi/aoc"
@@ -9,6 +11,11 @@ import (
 const (
 	packageRoot = "github.com/yitsushi/advent-of-code-2020"
 )
+
+type templateVariables struct {
+	Day  int
+	Root string
+}
 
 func scaffoldCommand() *cobra.Command {
 	cmd := &cobra.Command{
@@ -22,15 +29,22 @@ func scaffoldCommand() *cobra.Command {
 				templateDir = "template/day"
 			}
 
-			err := aoc.Scaffold(dayNumber, templateDir, packageRoot)
+			err := aoc.Scaffold(
+				templateDir,
+				fmt.Sprintf("days/day%02d", dayNumber),
+				templateVariables{
+					Day:  dayNumber,
+					Root: packageRoot,
+				},
+			)
 			if err != nil {
-				logrus.Error(err)
+				logrus.Errorln(err)
 			}
 		},
 	}
 
 	cmd.Flags().Int("day", 1, "Day")
-	cmd.Flags().Int("template-dir", 1, "Template Directory")
+	cmd.Flags().String("template-dir", "", "Template Directory")
 
 	_ = cmd.MarkFlagRequired("day")
 

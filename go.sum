@@ -177,6 +177,8 @@ github.com/yitsushi/aoc v0.0.0-20201209142300-fea3663fd53b h1:+N5ZGwASCP5krJ739p
 github.com/yitsushi/aoc v0.0.0-20201209142300-fea3663fd53b/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
 github.com/yitsushi/aoc v1.0.0 h1:/zp32d5Dxjmzh7NLGj4v/x+ywV3ZuI3a+dTp+rZF3DE=
 github.com/yitsushi/aoc v1.0.0/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
+github.com/yitsushi/aoc v1.1.0 h1:IniHfWLsOav5Ma4aXmWKfcaRJMC7g8rXLHJFopW8mEw=
+github.com/yitsushi/aoc v1.1.0/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0/go.mod h1:+kGneAE2xo2IficOXnaByMWTGM9T73dGwxeWcUqIpI8=
