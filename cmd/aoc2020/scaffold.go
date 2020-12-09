@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/yitsushi/advent-of-code-2020/pkg/aoc"
+	"github.com/yitsushi/aoc"
 )
 
 const (
@@ -30,7 +30,7 @@ func scaffoldCommand() *cobra.Command {
 	}
 
 	cmd.Flags().Int("day", 1, "Day")
-	cmd.Flags().Int("template-dir", 1, "Template DIrectory")
+	cmd.Flags().Int("template-dir", 1, "Template Directory")
 
 	_ = cmd.MarkFlagRequired("day")
 

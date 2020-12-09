@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/yitsushi/advent-of-code-2020/pkg/aoc"
+	"github.com/yitsushi/aoc"
 )
 
 func downloadCommand() *cobra.Command {
@@ -14,21 +15,26 @@ func downloadCommand() *cobra.Command {
 		Short: "Download a puzzle input",
 		Run: func(cmd *cobra.Command, args []string) {
 			dayNumber, _ := cmd.Flags().GetInt("day")
-			partNumber, _ := cmd.Flags().GetInt("part")
 
-			output, err := aoc.DownloadInput(currentYear, dayNumber, partNumber)
+			targetDir := fmt.Sprintf("input/day%02d", dayNumber)
+			targetFile := fmt.Sprintf("%s/input", targetDir)
+
+			ensurePath(targetDir)
+
+			client := aoc.NewClient(os.Getenv("AOC_SESSION"))
+
+			err := client.DownloadAndSaveInput(currentYear, dayNumber, targetFile)
 			if err != nil {
 				logrus.Fatal(err.Error())
 
 				return
 			}
 
-			fmt.Printf("Done... %s\n", output)
+			fmt.Printf("Done... %s\n", targetFile)
 		},
 	}
 
 	cmd.Flags().Int("day", 1, "Day")
-	cmd.Flags().Int("part", 1, "Part")
 
 	_ = cmd.MarkFlagRequired("day")
 

@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"github.com/yitsushi/advent-of-code-2020/pkg/aoc"
 	"github.com/yitsushi/advent-of-code-2020/pkg/extra"
 	"github.com/yitsushi/advent-of-code-2020/pkg/puzzle"
+	"github.com/yitsushi/aoc"
 )
 
 func submitCommand() *cobra.Command {
@@ -36,7 +37,9 @@ func submitCommand() *cobra.Command {
 				return
 			}
 
-			valid, err := aoc.SubmitSolution(currentYear, dayNumber, partNumber, solution)
+			client := aoc.NewClient(os.Getenv("AOC_SESSION"))
+
+			valid, err := client.SubmitSolution(currentYear, dayNumber, partNumber, solution)
 			if err != nil {
 				fmt.Printf("%s\n", err.Error())
 
