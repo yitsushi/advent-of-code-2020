@@ -1,24 +1,23 @@
 package day09_test
 
 import (
+	"bytes"
 	"io/ioutil"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/yitsushi/advent-of-code-2020/days/day09"
+	"github.com/yitsushi/advent-of-code-2020/test"
 )
 
 func TestSolver_SetInput(t *testing.T) {
-	day := day09.Solver{}
-	err := day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	example, err := test.LoadFixture("real")
+	if !assert.NoError(t, err) {
+		return
+	}
 
-	assert.NoError(t, err)
-}
-
-func TestSolver_SetInput_invalid(t *testing.T) {
 	day := day09.Solver{}
-	err := day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	err = day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
 
 	assert.NoError(t, err)
 }
