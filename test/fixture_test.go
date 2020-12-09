@@ -1,6 +1,7 @@
 package test_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/yitsushi/advent-of-code-2020/test"
@@ -22,6 +23,17 @@ func TestLoadFixture_notFound(t *testing.T) {
 	data, err := test.LoadFixture("nodata")
 	if err == nil {
 		t.Errorf("TestLoadFixture_notFound should not find the 'nodata' file")
+	}
+
+	workingDirectory, _ := os.Getwd()
+
+	expectedError := test.FixtureFileNotFound{
+		Path: workingDirectory,
+		Name: "nodata",
+	}
+
+	if err.Error() != expectedError.Error() {
+		t.Errorf("expected error: '%s', got '%s'", expectedError.Error(), err.Error())
 	}
 
 	expected := ""
