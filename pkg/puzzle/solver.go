@@ -36,6 +36,8 @@ func (s *Solver) Solve(value, file string) (string, error) {
 
 	input, err := inputAsReader(value, file)
 	if err != nil {
+		logrus.Debugf("Input error: %s", err.Error())
+
 		return "", err
 	}
 
@@ -43,6 +45,8 @@ func (s *Solver) Solve(value, file string) (string, error) {
 
 	err = s.Day.SetInput(input)
 	if err != nil {
+		logrus.Debugf("SetInput error: %s", err.Error())
+
 		return "", err
 	}
 

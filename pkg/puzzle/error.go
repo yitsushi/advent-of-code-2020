@@ -18,26 +18,26 @@ type UnkownPartError struct {
 }
 
 func (e UnkownPartError) Error() string {
-	return fmt.Sprintf("Unknown Part: %T :: %d", e.Day, e.Part)
+	return fmt.Sprintf("unknown part: %T :: %d", e.Day, e.Part)
 }
 
 // NoInputError occurs when we have no input values.
 type NoInputError struct{}
 
 func (e NoInputError) Error() string {
-	return "No input, no puzzle!"
+	return "no input, no puzzle"
 }
 
 // NoSolution occurs when we are unable to find a solution.
 type NoSolution struct{}
 
 func (e NoSolution) Error() string {
-	return "2020404 - Solution Not Found"
+	return "2020404 - solution not found"
 }
 
 // NotImplemented occurs when something is not implemented.
 type NotImplemented struct{}
 
 func (e NotImplemented) Error() string {
-	return "2020501 - Not Implemented"
+	return "2020501 - not implemented"
 }
