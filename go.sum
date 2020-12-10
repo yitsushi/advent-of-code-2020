@@ -173,12 +173,6 @@ github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/
 github.com/subosito/gotenv v1.2.0/go.mod h1:N0PQaV/YGNqwC0u51sEeR/aUtSLEXKX9iv69rRypqCw=
 github.com/tmc/grpc-websocket-proxy v0.0.0-20190109142713-0ad062ec5ee5/go.mod h1:ncp9v5uamzpCO7NfCPTXjqaC+bZgJeR0sMTm6dMHP7U=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
-github.com/yitsushi/aoc v0.0.0-20201209142300-fea3663fd53b h1:+N5ZGwASCP5krJ739pwre2n9dJIYNn4iFbKtRHnSA0o=
-github.com/yitsushi/aoc v0.0.0-20201209142300-fea3663fd53b/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
-github.com/yitsushi/aoc v1.0.0 h1:/zp32d5Dxjmzh7NLGj4v/x+ywV3ZuI3a+dTp+rZF3DE=
-github.com/yitsushi/aoc v1.0.0/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
-github.com/yitsushi/aoc v1.1.0 h1:IniHfWLsOav5Ma4aXmWKfcaRJMC7g8rXLHJFopW8mEw=
-github.com/yitsushi/aoc v1.1.0/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
 github.com/yitsushi/aoc v1.1.1 h1:uAONFHvmmELHjgPlsuAxRBWzoatsrf2Nf3yNh0xAwJ4=
 github.com/yitsushi/aoc v1.1.1/go.mod h1:4A9YeIdilIliTIA6aGHEOYEj9sWoB8lOyMHL6PhKyX8=
 github.com/yitsushi/go-misskey v1.0.0 h1:QNJQZjmH0duN7mMseHsQ3Ayl/uvgY6vDZ+8MHz+pu5Y=

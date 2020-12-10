@@ -44,12 +44,8 @@ func (d *Solver) Part2() (string, error) {
 	defer perf.Duration(perf.Track("Part2"))
 
 	pathCache := newCache()
-
-	logrus.Info(d.input)
-
 	target := math.MaximumInt64(d.input) + adapterOffset
-	d.input = append(d.input, target)
-	d.input = append([]int64{0}, d.input...)
+	d.input = append([]int64{0}, append(d.input, target)...)
 	paths := walk(d.input, &pathCache, target)
 
 	return fmt.Sprintf("%d", paths), nil
