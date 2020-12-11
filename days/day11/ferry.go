@@ -87,7 +87,7 @@ func (f *Ferry) Adjacents(x, y int, long bool) []Position {
 
 	for _, dy := range []int{-1, 0, 1} {
 		for _, dx := range []int{-1, 0, 1} {
-			if dx == 0 && dy == 0 {
+			if dx|dy == 0 {
 				continue
 			}
 
