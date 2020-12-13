@@ -1,32 +1,27 @@
 package day13_test
 
 import (
+	"bytes"
 	"io/ioutil"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/yitsushi/advent-of-code-2020/days/day13"
+	"github.com/yitsushi/advent-of-code-2020/test"
 )
 
 func TestSolver_Part2(t *testing.T) {
+	example, err := test.LoadFixture("example")
+	if !assert.NoError(t, err) {
+		return
+	}
+
 	day := day13.Solver{}
 
-	day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
 
 	out, err := day.Part2()
 
-	assert.Error(t, err)
-	assert.Equal(t, "", out)
-}
-
-func TestSolver_Part2_noSolution(t *testing.T) {
-	day := day13.Solver{}
-
-	day.SetInput(ioutil.NopCloser(strings.NewReader("")))
-
-	out, err := day.Part2()
-
-	assert.Error(t, err)
-	assert.Equal(t, "", out)
+	assert.NoError(t, err)
+	assert.Equal(t, "1068781", out)
 }
