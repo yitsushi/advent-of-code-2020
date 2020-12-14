@@ -27,7 +27,7 @@ func TestDaySelector_notFound(t *testing.T) {
 	day, err := extra.DaySelector(1000)
 
 	assert.Error(t, err)
-	assert.EqualError(t, err, (puzzle.UnkownDayError{Day: 1000}).Error())
+	assert.EqualError(t, err, (extra.UnkownDayError{Day: 1000}).Error())
 	assert.Nil(t, day)
 }
 
@@ -35,6 +35,6 @@ func TestDaySelector_negative(t *testing.T) {
 	day, err := extra.DaySelector(-1)
 
 	assert.Error(t, err)
-	assert.EqualError(t, err, (puzzle.UnkownDayError{Day: -1}).Error())
+	assert.EqualError(t, err, (extra.UnkownDayError{Day: -1}).Error())
 	assert.Nil(t, day)
 }
