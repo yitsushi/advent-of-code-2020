@@ -70,6 +70,17 @@ INFO[0000] Part1: 11.047µs
 DEBU[0000] Calling *day01.Solver => Part1
 INFO[0000] Part1: 7.1µs
 805731
+
+# Both part1 and part2
+❯ aoc2020 solve --day=1 --part=0 --input-file=input/day01/part1 --log-level=info
+❯ go run ./cmd/aoc2020  solve --day=1 --part=0 --input-file=input/day01/part1 --log-level=info
+INFO[0000] Part1: 5µs                                   
+INFO[0000] Part2: 407.8µs                               
+ -- Part1:
+805731
+
+ -- Part2:
+192684960
 ```
 
 ### Submit Solution

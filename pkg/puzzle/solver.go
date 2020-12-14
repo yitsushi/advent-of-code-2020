@@ -63,7 +63,7 @@ func (s *Solver) Solve(value, file string) (string, error) {
 
 		p2, err := s.Day.Part2()
 
-		return fmt.Sprintf("Part1: %s\n\nPart2: %s", p1, p2), err
+		return fmt.Sprintf(" -- Part1:\n%s\n\n -- Part2:\n%s", p1, p2), err
 	case Part1:
 		return s.Day.Part1()
 	case Part2:

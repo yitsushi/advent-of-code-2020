@@ -39,7 +39,7 @@ func TestSolver_Solve_part1AndnotImplementedPart2(t *testing.T) {
 
 	assert.Error(t, err)
 	assert.Equal(t, "2020501 - not implemented", err.Error())
-	assert.Equal(t, "Part1: yey\n\nPart2: ", solution)
+	assert.Equal(t, " -- Part1:\nyey\n\n -- Part2:\n", solution)
 }
 
 func TestSolver_Solve_part1FailNoPart2Called(t *testing.T) {
