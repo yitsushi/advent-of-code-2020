@@ -33,6 +33,24 @@ func TestSolver_Solve_notImplementedPart2(t *testing.T) {
 	assert.Equal(t, "", solution)
 }
 
+func TestSolver_Solve_part1AndnotImplementedPart2(t *testing.T) {
+	solver := puzzle.NewSolver(&testDay{}, 0)
+	solution, err := solver.Solve("something\nelse", "")
+
+	assert.Error(t, err)
+	assert.Equal(t, "2020501 - not implemented", err.Error())
+	assert.Equal(t, "Part1: yey\n\nPart2: ", solution)
+}
+
+func TestSolver_Solve_part1FailNoPart2Called(t *testing.T) {
+	solver := puzzle.NewSolver(&testDay{}, 0)
+	solution, err := solver.Solve("value", "")
+
+	assert.Error(t, err)
+	assert.Equal(t, "2020404 - solution not found", err.Error())
+	assert.Equal(t, "", solution)
+}
+
 func TestSolver_Solve_invalidInput(t *testing.T) {
 	solver := puzzle.NewSolver(&testDay{}, 1)
 	solution, err := solver.Solve("nope", "")

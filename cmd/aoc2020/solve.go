@@ -40,7 +40,7 @@ func solveCommand() *cobra.Command {
 	}
 
 	cmd.Flags().Int("day", 1, "Day")
-	cmd.Flags().Int("part", 1, "Part")
+	cmd.Flags().Int("part", 1, "Part (0 => both)")
 	cmd.Flags().String("input", "", "Input as value")
 	cmd.Flags().String("input-file", "", "Input as file (path)")
 

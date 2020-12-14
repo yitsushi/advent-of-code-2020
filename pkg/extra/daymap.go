@@ -59,7 +59,7 @@ func DaySelector(day int) (puzzle.Day, error) {
 	}
 
 	if len(solvers) <= day || day < 0 {
-		return nil, puzzle.UnkownDayError{Day: day}
+		return nil, UnkownDayError{Day: day}
 	}
 
 	d := solvers[day]
