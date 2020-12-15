@@ -55,6 +55,8 @@ func (d *Solver) Part2() (string, error) {
 		switch err.(type) {
 		case InfiniteLoopDetected:
 			continue
+		default:
+			return "", err
 		}
 	}
 
