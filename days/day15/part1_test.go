@@ -36,3 +36,17 @@ func TestSolver_Part1(t *testing.T) {
 		break
 	}
 }
+
+func TestSolver_Part1_real(t *testing.T) {
+	day := day15.Solver{}
+
+	err := day.SetInput(ioutil.NopCloser(strings.NewReader("14,1,17,0,3,20")))
+	if !assert.NoError(t, err) {
+		return
+	}
+
+	out, err := day.Part1()
+
+	assert.NoError(t, err)
+	assert.Equal(t, "387", out)
+}
