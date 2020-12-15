@@ -17,5 +17,5 @@ func TestSolver_Part1(t *testing.T) {
 	out, err := day.Part1()
 
 	assert.NoError(t, err)
-	assert.Equal(t, "2", out)
+	assert.Equal(t, "3", out)
 }

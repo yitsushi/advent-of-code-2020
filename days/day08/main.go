@@ -60,5 +60,5 @@ func (d *Solver) Part2() (string, error) {
 		}
 	}
 
-	return "", puzzle.NotImplemented{}
+	return "", puzzle.NoSolution{}
 }

@@ -11,14 +11,14 @@ import (
 
 func TestSolver_SetInput(t *testing.T) {
 	day := day14.Solver{}
-	err := day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	err := day.SetInput(ioutil.NopCloser(strings.NewReader("mask = xxx")))
 
 	assert.NoError(t, err)
 }
 
-func TestSolver_SetInput_invalid(t *testing.T) {
+func TestSolver_SetInput_invalidIgnore(t *testing.T) {
 	day := day14.Solver{}
-	err := day.SetInput(ioutil.NopCloser(strings.NewReader("")))
+	err := day.SetInput(ioutil.NopCloser(strings.NewReader("stuff = 123")))
 
 	assert.NoError(t, err)
 }
