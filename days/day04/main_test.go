@@ -12,6 +12,11 @@ eyr:2024
 ecl:brn pid:760753108 byr:1931
 hgt:179cm
 
+hcl:#ae17e1 iyr:2013
+eyr:2024
+ecl:lkd pid:760753108 byr:1931
+hgt:179cm
+
 hcl:#cfa07d eyr:2025 pid:166559648
 iyr:2011 ecl:brn hgt:59in`
 	allValid = `pid:087499704 hgt:74in ecl:grn iyr:2012 eyr:2030 byr:1980

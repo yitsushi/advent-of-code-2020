@@ -21,4 +21,5 @@ func TestSolver_SetInput_invalid(t *testing.T) {
 	err := day.SetInput(ioutil.NopCloser(strings.NewReader("asdasdas +78")))
 
 	assert.Error(t, err)
+	assert.Equal(t, "unknown operation: asdasdas 78", err.Error())
 }

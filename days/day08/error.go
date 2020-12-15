@@ -9,19 +9,19 @@ type UnknownOperation struct {
 }
 
 func (e UnknownOperation) Error() string {
-	return fmt.Sprintf("Unknown operation: %s %d", e.Operation, e.Value)
+	return fmt.Sprintf("unknown operation: %s %d", e.Operation, e.Value)
 }
 
 // ExecutionError occurs when the machine meets an unexpected error.
 type ExecutionError struct{}
 
 func (e ExecutionError) Error() string {
-	return "ExecutionError"
+	return "execution error"
 }
 
 // InfiniteLoopDetected occurs when the machine detects an infinite loop.
 type InfiniteLoopDetected struct{}
 
 func (e InfiniteLoopDetected) Error() string {
-	return "Infinite Loop Detected"
+	return "infinite loop detected"
 }
