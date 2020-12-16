@@ -19,8 +19,7 @@ func TestSolver_SetInput(t *testing.T) {
 	}
 
 	day := day{{printf "%02d" .Day}}.Solver{}
-
-	day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
+	err = day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
 
 	assert.NoError(t, err)
 }

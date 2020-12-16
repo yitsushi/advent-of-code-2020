@@ -11,8 +11,6 @@ import (
 )
 
 func TestSolver_SetInput(t *testing.T) {
-	t.Skip()
-
 	example, err := test.LoadFixture("example")
 	if !assert.NoError(t, err) {
 		return
@@ -20,7 +18,33 @@ func TestSolver_SetInput(t *testing.T) {
 
 	day := day16.Solver{}
 
-	day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
+	err = day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
 
 	assert.NoError(t, err)
+}
+
+func TestSolver_SetInput_invalidRange(t *testing.T) {
+	example, err := test.LoadFixture("invalid-range")
+	if !assert.NoError(t, err) {
+		return
+	}
+
+	day := day16.Solver{}
+
+	err = day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
+
+	assert.Error(t, err)
+}
+
+func TestSolver_SetInput_invalidList(t *testing.T) {
+	example, err := test.LoadFixture("invalid-ticket-list")
+	if !assert.NoError(t, err) {
+		return
+	}
+
+	day := day16.Solver{}
+
+	err = day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
+
+	assert.Error(t, err)
 }
