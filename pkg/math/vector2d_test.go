@@ -59,3 +59,23 @@ func TestVector2D_Manhattan(t *testing.T) {
 
 	assert.Equal(t, float64(48), v.Manhattan())
 }
+
+func TestVector2D_Hash(t *testing.T) {
+	v := math.Vector2D{15, 33}
+
+	assert.Equal(t, "15.0000;33.0000", v.Hash())
+}
+
+func TestVector2D_Neighbors(t *testing.T) {
+	v := math.Vector2D{15, 33}
+
+	neighbors := v.Neighbors()
+
+	assert.Len(t, neighbors, 8)
+}
+
+func TestVector2D_Values(t *testing.T) {
+	v := math.Vector2D{15, 33}
+
+	assert.Equal(t, []float64{15, 33}, v.Values())
+}
