@@ -9,7 +9,7 @@ import (
 
 // Solver is the main solver.
 type Solver struct {
-	space3D Space
+	space Space
 }
 
 const activeStateCharacter = '#'
@@ -18,12 +18,12 @@ const activeStateCharacter = '#'
 func (d *Solver) SetInput(input io.Reader) error {
 	scanner := bufio.NewScanner(input)
 
-	d.space3D = NewSpace()
+	d.space = NewSpace()
 	y := float64(0)
 
 	for scanner.Scan() {
 		for x, ch := range scanner.Text() {
-			node := d.space3D.Inspect(math.Vector3D{
+			node := d.space.Inspect(math.Vector3D{
 				X: float64(x),
 				Y: y,
 				Z: 0,
