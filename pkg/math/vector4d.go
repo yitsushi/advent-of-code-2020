@@ -82,3 +82,8 @@ func (v *Vector4D) MaximizeFrom(vector Vector4D) {
 		v.W = vector.W
 	}
 }
+
+// Values for the vector as plain float64 slice.
+func (v Vector4D) Values() []float64 {
+	return []float64{v.X, v.Y, v.Z, v.W}
+}

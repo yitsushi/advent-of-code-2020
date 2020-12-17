@@ -4,4 +4,5 @@ package math
 type Vector interface {
 	Hash() string
 	Neighbors() []Vector
+	Values() []float64
 }

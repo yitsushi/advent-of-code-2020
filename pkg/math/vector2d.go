@@ -56,3 +56,8 @@ func (v Vector2D) Neighbors() []Vector {
 
 	return vectors
 }
+
+// Values for the vector as plain float64 slice.
+func (v Vector2D) Values() []float64 {
+	return []float64{v.X, v.Y}
+}

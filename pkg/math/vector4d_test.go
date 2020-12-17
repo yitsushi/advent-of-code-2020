@@ -13,6 +13,12 @@ func TestVector4D_Hash(t *testing.T) {
 	assert.Equal(t, "15.0000;33.0000;11.0000;23.0000", v.Hash())
 }
 
+func TestVector4D_Values(t *testing.T) {
+	v := math.Vector4D{15, 33, 11, 23}
+
+	assert.Equal(t, []float64{15, 33, 11, 23}, v.Values())
+}
+
 func TestVector4D_Neighbors(t *testing.T) {
 	v := math.Vector4D{15, 33, 11, 23}
 

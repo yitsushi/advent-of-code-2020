@@ -73,3 +73,9 @@ func TestVector2D_Neighbors(t *testing.T) {
 
 	assert.Len(t, neighbors, 8)
 }
+
+func TestVector2D_Values(t *testing.T) {
+	v := math.Vector2D{15, 33}
+
+	assert.Equal(t, []float64{15, 33}, v.Values())
+}

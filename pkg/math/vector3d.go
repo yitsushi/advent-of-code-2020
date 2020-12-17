@@ -70,3 +70,8 @@ func (v *Vector3D) MaximizeFrom(vector Vector3D) {
 		v.Z = vector.Z
 	}
 }
+
+// Values for the vector as plain float64 slice.
+func (v Vector3D) Values() []float64 {
+	return []float64{v.X, v.Y, v.Z}
+}
