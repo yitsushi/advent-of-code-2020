@@ -8,9 +8,6 @@ import (
 type Space struct {
 	storage       map[string]*Node
 	neighborCache map[string][]*Node
-
-	minValues math.Vector3D
-	maxValues math.Vector3D
 }
 
 // NewSpace creates a new Space.
@@ -53,23 +50,20 @@ func (s *Space) Finalize() {
 }
 
 // Lookup a Node at a given coordinate.
-func (s *Space) Lookup(coordinate math.Vector3D) *Node {
+func (s *Space) Lookup(coordinate math.Vector) *Node {
 	return s.storage[coordinate.Hash()]
 }
 
 // Inspect a coordinate.
 // If there is a Node, return with the Node.
 // If no Node living there, create one.
-func (s *Space) Inspect(coordinate math.Vector3D) *Node {
+func (s *Space) Inspect(coordinate math.Vector) *Node {
 	node := s.Lookup(coordinate)
 	if node == nil {
 		node = &Node{
 			Active:     false,
 			Coordinate: coordinate,
 		}
-
-		s.minValues.MinimizeFrom(coordinate)
-		s.maxValues.MaximizeFrom(coordinate)
 
 		s.storage[coordinate.Hash()] = node
 	}

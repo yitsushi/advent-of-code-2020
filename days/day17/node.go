@@ -6,7 +6,7 @@ import "github.com/yitsushi/advent-of-code-2020/pkg/math"
 type Node struct {
 	Active     bool
 	NextState  bool
-	Coordinate math.Vector3D
+	Coordinate math.Vector
 }
 
 // InstantSet sets the Active status without needing to finalize it.

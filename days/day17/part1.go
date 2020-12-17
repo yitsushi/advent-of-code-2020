@@ -14,15 +14,15 @@ func (d *Solver) Part1() (string, error) {
 		queue := NewUpdateQueue()
 		changeQueue := NewUpdateQueue()
 
-		for _, node := range d.space.SelectNodes(true) {
+		for _, node := range d.space3D.SelectNodes(true) {
 			queue.Push(node)
-			queue.Push(d.space.Neighbors(node)...)
+			queue.Push(d.space3D.Neighbors(node)...)
 		}
 
 		for !queue.Empty() {
 			node := queue.Pull()
 
-			activeNum := len(d.space.SelectNeighbors(node, true))
+			activeNum := len(d.space3D.SelectNeighbors(node, true))
 			activate := (!node.Active && activeNum == i2aValue)
 			deactivate := (node.Active && activeNum != a2iMin && activeNum != a2iMax)
 
@@ -41,7 +41,7 @@ func (d *Solver) Part1() (string, error) {
 
 	countActive := 0
 
-	for _, node := range d.space.Nodes() {
+	for _, node := range d.space3D.Nodes() {
 		if node.Active {
 			countActive++
 		}
