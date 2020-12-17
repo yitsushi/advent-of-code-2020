@@ -4,20 +4,24 @@ import (
 	"sync"
 )
 
-type UpdateQueue struct {
+// NodeQueue is a simple queue with unique items.
+type NodeQueue struct {
 	queue    []*Node
 	keyCache map[string]bool
 	lock     sync.RWMutex
 }
 
-func NewUpdateQueue() UpdateQueue {
-	return UpdateQueue{
+// NewUpdateQueue create a new UpdateQueue.
+func NewUpdateQueue() NodeQueue {
+	return NodeQueue{
 		queue:    []*Node{},
 		keyCache: map[string]bool{},
 	}
 }
 
-func (q *UpdateQueue) Push(nodes ...*Node) {
+// Push items into the queue.
+// The queue contains only unique items.
+func (q *NodeQueue) Push(nodes ...*Node) {
 	q.lock.Lock()
 	defer q.lock.Unlock()
 
@@ -31,7 +35,8 @@ func (q *UpdateQueue) Push(nodes ...*Node) {
 	}
 }
 
-func (q *UpdateQueue) Pull() *Node {
+// Pull an item from the Queue.
+func (q *NodeQueue) Pull() *Node {
 	if len(q.queue) > 0 {
 		q.lock.Lock()
 		defer q.lock.Unlock()
@@ -43,13 +48,16 @@ func (q *UpdateQueue) Pull() *Node {
 
 		return item
 	}
+
 	return nil
 }
 
-func (q *UpdateQueue) Size() int {
+// Size of the queue.
+func (q *NodeQueue) Size() int {
 	return len(q.queue)
 }
 
-func (q *UpdateQueue) Empty() bool {
+// Empty or not?
+func (q *NodeQueue) Empty() bool {
 	return len(q.queue) == 0
 }

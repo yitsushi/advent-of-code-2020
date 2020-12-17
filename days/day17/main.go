@@ -3,7 +3,6 @@ package day17
 import (
 	"fmt"
 
-	"github.com/sirupsen/logrus"
 	"github.com/yitsushi/advent-of-code-2020/pkg/perf"
 	"github.com/yitsushi/advent-of-code-2020/pkg/puzzle"
 )
@@ -63,14 +62,4 @@ func (d *Solver) Part2() (string, error) {
 	defer perf.Duration(perf.Track("Part2"))
 
 	return "", puzzle.NotImplemented{}
-}
-
-func (d *Solver) draw() {
-	for idx, layer := range d.space.Display() {
-		logrus.Debugf("Layer #%d", idx)
-		for _, line := range layer {
-			logrus.Debug(line)
-		}
-		logrus.Debug("")
-	}
 }

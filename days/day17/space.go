@@ -1,10 +1,10 @@
 package day17
 
 import (
-	"github.com/sirupsen/logrus"
 	"github.com/yitsushi/advent-of-code-2020/pkg/math"
 )
 
+// Space is a 3D space where nodes can live.
 type Space struct {
 	storage       map[string]*Node
 	neighborCache map[string][]*Node
@@ -13,6 +13,7 @@ type Space struct {
 	maxValues math.Vector3D
 }
 
+// NewSpace creates a new Space.
 func NewSpace() Space {
 	return Space{
 		storage:       map[string]*Node{},
@@ -20,6 +21,7 @@ func NewSpace() Space {
 	}
 }
 
+// Nodes returns all known nodes.
 func (s *Space) Nodes() []*Node {
 	nodes := []*Node{}
 
@@ -30,6 +32,7 @@ func (s *Space) Nodes() []*Node {
 	return nodes
 }
 
+// SelectNodes with given Active state.
 func (s *Space) SelectNodes(active bool) []*Node {
 	nodes := []*Node{}
 
@@ -42,16 +45,21 @@ func (s *Space) SelectNodes(active bool) []*Node {
 	return nodes
 }
 
+// Finalize all nodes.
 func (s *Space) Finalize() {
 	for _, node := range s.storage {
 		node.Finalize()
 	}
 }
 
+// Lookup a Node at a given coordinate.
 func (s *Space) Lookup(coordinate math.Vector3D) *Node {
 	return s.storage[coordinate.Hash()]
 }
 
+// Inspect a coordinate.
+// If there is a Node, return with the Node.
+// If no Node living there, create one.
 func (s *Space) Inspect(coordinate math.Vector3D) *Node {
 	node := s.Lookup(coordinate)
 	if node == nil {
@@ -69,6 +77,7 @@ func (s *Space) Inspect(coordinate math.Vector3D) *Node {
 	return node
 }
 
+// Neighbors for a given Node.
 func (s *Space) Neighbors(node *Node) []*Node {
 	nodes := []*Node{}
 
@@ -76,9 +85,9 @@ func (s *Space) Neighbors(node *Node) []*Node {
 		return nodes
 	}
 
-	// if cache, found := s.neighborCache[node.Coordinate.Hash()]; found {
-	// 	return cache
-	// }
+	if cache, found := s.neighborCache[node.Coordinate.Hash()]; found {
+		return cache
+	}
 
 	for _, neighbor := range node.Coordinate.Neighbors() {
 		n := s.Inspect(neighbor)
@@ -88,11 +97,12 @@ func (s *Space) Neighbors(node *Node) []*Node {
 		}
 	}
 
-	// s.neighborCache[node.Coordinate.Hash()] = nodes
+	s.neighborCache[node.Coordinate.Hash()] = nodes
 
 	return nodes
 }
 
+// SelectNeighbors with given Active state.
 func (s *Space) SelectNeighbors(node *Node, active bool) []*Node {
 	nodes := []*Node{}
 
@@ -107,42 +117,4 @@ func (s *Space) SelectNeighbors(node *Node, active bool) []*Node {
 	}
 
 	return nodes
-}
-
-func (s *Space) Display() [][]string {
-	logrus.Debug(s.minValues)
-	logrus.Debug(s.maxValues)
-
-	layers := [][]string{}
-
-	for z := s.minValues.Z; z <= s.maxValues.Z; z++ {
-		lines := []string{}
-
-		for y := s.minValues.Y; y <= s.maxValues.Y; y++ {
-			line := []rune{}
-			for x := s.minValues.X; x <= s.maxValues.X; x++ {
-				ch := inactiveStateCharacter
-
-				if s.Inspect(math.Vector3D{X: x, Y: y, Z: z}).Active {
-					ch = activeStateCharacter
-				}
-
-				line = append(line, ch)
-			}
-
-			lines = append(lines, string(line))
-		}
-
-		layers = append(layers, lines)
-	}
-
-	return layers
-}
-
-func (s *Space) Extend() {
-	for _, node := range s.storage {
-		for _, n := range node.Coordinate.Neighbors() {
-			s.Inspect(n)
-		}
-	}
 }

@@ -5,8 +5,10 @@ import (
 	"math"
 )
 
+// Vector is a vector interface.
 type Vector interface {
 	Hash() string
+	Neighbors() Vector
 }
 
 // Vector2D is a 2D vector.
@@ -29,6 +31,7 @@ func (v *Vector2D) Rotate(angle float64) {
 	v.X, v.Y = x, y
 }
 
+// Hash for cache.
 func (v *Vector2D) Hash() string {
 	return fmt.Sprintf("%.4f;%.4f", v.X, v.Y)
 }
@@ -38,6 +41,7 @@ func (v *Vector2D) Manhattan() float64 {
 	return math.Abs(v.X) + math.Abs(v.Y)
 }
 
+// Neighbors if it's a coordinate.
 func (v *Vector2D) Neighbors() []Vector2D {
 	vectors := []Vector2D{}
 	checkRange := []float64{-1, 0, 1}
@@ -68,10 +72,12 @@ type Vector3D struct {
 	Z float64
 }
 
+// Hash for cache.
 func (v *Vector3D) Hash() string {
 	return fmt.Sprintf("%.0f;%.0f;%.0f", v.X, v.Y, v.Z)
 }
 
+// Neighbors if it's a coordinate.
 func (v *Vector3D) Neighbors() []Vector3D {
 	vectors := []Vector3D{}
 	checkRange := []float64{-1, 0, 1}
@@ -98,6 +104,7 @@ func (v *Vector3D) Neighbors() []Vector3D {
 	return vectors
 }
 
+// MinimizeFrom set x, y and z values to the minimum value from the two vectors.
 func (v *Vector3D) MinimizeFrom(vector Vector3D) {
 	if vector.X < v.X {
 		v.X = vector.X
@@ -112,6 +119,7 @@ func (v *Vector3D) MinimizeFrom(vector Vector3D) {
 	}
 }
 
+// MaximizeFrom set x, y and z values to the maximum value from the two vectors.
 func (v *Vector3D) MaximizeFrom(vector Vector3D) {
 	if vector.X > v.X {
 		v.X = vector.X

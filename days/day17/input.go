@@ -12,10 +12,7 @@ type Solver struct {
 	space Space
 }
 
-const (
-	activeStateCharacter   = '#'
-	inactiveStateCharacter = '.'
-)
+const activeStateCharacter = '#'
 
 // SetInput receives the input and parses its content.
 func (d *Solver) SetInput(input io.Reader) error {
