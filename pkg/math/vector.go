@@ -17,8 +17,6 @@ type Vector2D struct {
 	Y float64
 }
 
-const rad = math.Pi / 180
-
 // Rotate the vector.
 func (v *Vector2D) Rotate(angle float64) {
 	angle *= rad
@@ -74,7 +72,7 @@ type Vector3D struct {
 
 // Hash for cache.
 func (v *Vector3D) Hash() string {
-	return fmt.Sprintf("%.0f;%.0f;%.0f", v.X, v.Y, v.Z)
+	return fmt.Sprintf("%.4f;%.4f;%.4f", v.X, v.Y, v.Z)
 }
 
 // Neighbors if it's a coordinate.
