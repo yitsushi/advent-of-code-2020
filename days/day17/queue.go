@@ -59,5 +59,5 @@ func (q *NodeQueue) Size() int {
 
 // Empty or not?
 func (q *NodeQueue) Empty() bool {
-	return len(q.queue) == 0
+	return q.Size() == 0
 }
