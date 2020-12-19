@@ -48,3 +48,46 @@ func TestContainsInt64(t *testing.T) {
 		})
 	}
 }
+
+func TestContainsString(t *testing.T) {
+	type args struct {
+		list  []string
+		value string
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want int
+		ok   bool
+	}{
+		{
+			name: "in list",
+			args: args{list: []string{"asd", "gfd", "qwe", "gfd"}, value: "asd"},
+			want: 0,
+			ok:   true,
+		},
+		{
+			name: "not in list",
+			args: args{list: []string{"asd", "gfd", "qwe"}, value: "lkj"},
+			want: -1,
+			ok:   false,
+		},
+		{
+			name: "in list repeated",
+			args: args{list: []string{"asd", "gfd", "qwe"}, value: "gfd"},
+			want: 1,
+			ok:   true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, ok := slice.ContainsString(tt.args.list, tt.args.value)
+
+			if got != tt.want || ok != tt.ok {
+				t.Errorf("ContainsString() = (%v, %v), want (%v, %v)", got, ok, tt.want, tt.ok)
+			}
+		})
+	}
+}
