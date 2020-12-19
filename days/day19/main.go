@@ -2,8 +2,12 @@ package day19
 
 import (
 	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
 
 	"github.com/sirupsen/logrus"
+	"github.com/yitsushi/advent-of-code-2020/pkg/bullshit"
 	"github.com/yitsushi/advent-of-code-2020/pkg/perf"
 )
 
@@ -11,15 +15,7 @@ import (
 func (d *Solver) Part1() (string, error) {
 	defer perf.Duration(perf.Track("Part1"))
 
-	var counter int
-
-	for _, input := range d.input {
-		if d.isPossible(input, 0) {
-			counter++
-		}
-	}
-
-	return fmt.Sprintf("%d", counter), nil
+	return fmt.Sprintf("%d", d.CountValidStrings()), nil
 }
 
 // Part2 for this day.
@@ -29,72 +25,76 @@ func (d *Solver) Part2() (string, error) {
 	d.ruleGroups[8] = newRuleGroupFromString("8: 42 | 42 8")
 	d.ruleGroups[11] = newRuleGroupFromString("11: 42 31 | 42 11 31")
 
-	var counter int
+	return fmt.Sprintf("%d", d.CountValidStrings()), nil
+}
+
+func (d *Solver) CountValidStrings() int64 {
+	var counter int64
+
+	matcher := d.GenerateRexep()
 
 	for _, input := range d.input {
-		if d.isPossible(input, 0) {
-			logrus.Warn(input)
+		if matcher.MatchString(input) {
 			counter++
 		}
 	}
 
-	return fmt.Sprintf("%d", counter), nil
+	return counter
 }
 
-func (d *Solver) isPossible(pattern string, target int64) bool {
-	logrus.Infof("Is it possible? %s", pattern)
+func (d *Solver) GenerateRexep() *regexp.Regexp {
+	keepGoing := true
+	cycles := 0
+	matcher := regexp.MustCompile(`\d+`)
+	remover := regexp.MustCompile(`\(\(([ab])\)\)`)
 
-	if pattern == "" {
-		logrus.Println("Found")
+	for id, group := range d.ruleGroups {
+		group.Regexp = group.String()
+		keepGoing = true
+
+		d.ruleGroups[id] = group
 	}
 
-	s, ok := d.checkGroup(pattern, d.ruleGroups[target])
-
-	return ok && len(pattern) == s
-}
-
-func (d *Solver) checkGroup(pattern string, group RuleGroup) (int, bool) {
-	for _, set := range group.RuleSets {
-		logrus.Debugf("Check Rule: %d => %v", group.ID, set.RefList)
-		if shift, ok := d.checkRuleSet(pattern, set); ok {
-			return shift, true
-		}
+	maxDepth := map[int64]int{
+		8:  10,
+		11: 10,
 	}
 
-	return 0, false
-}
+	for keepGoing && cycles < 100 {
+		keepGoing = false
+		group := d.ruleGroups[0]
+		result := matcher.ReplaceAllStringFunc(group.Regexp, func(match string) string {
+			id := bullshit.DropErrorInt64(strconv.ParseInt(match, 10, 64))
 
-func (d *Solver) checkRuleSet(pattern string, set RuleSet) (int, bool) {
-	logrus.Debugf("Check RuleSet on %s: %v", pattern, set.RefList)
-
-	if len(pattern) < 1 {
-		logrus.Error("End of pattern")
-	}
-
-	if len(pattern) < 1 {
-		return 0, false
-	}
-
-	shift := 0
-
-	for _, rule := range set.Rules {
-		logrus.Debug(pattern[shift:], rule)
-		if rule.Ref == -1 {
-			if rule.Value != byte(pattern[shift]) {
-				return 0, false
+			switch id {
+			case 8:
+				maxDepth[8]--
+				if maxDepth[8] < 0 {
+					return match
+				}
+			case 11:
+				maxDepth[11]--
+				if maxDepth[11] < 0 {
+					return match
+				}
 			}
 
-			shift++
-			continue
+			return fmt.Sprintf("(%s)", d.ruleGroups[id].Regexp)
+		})
+		result = remover.ReplaceAllString(result, "($1)")
+
+		if result != group.Regexp {
+			keepGoing = true
+			group.Regexp = result
+			d.ruleGroups[0] = group
 		}
 
-		s, check := d.checkGroup(pattern[shift:], d.ruleGroups[rule.Ref])
-		if !check {
-			return 0, false
-		}
-
-		shift += s
+		cycles++
 	}
 
-	return shift, true
+	logrus.Infof("Done in %d rounds.", cycles)
+
+	exp := strings.Replace(d.ruleGroups[0].Regexp, " ", "", -1)
+
+	return regexp.MustCompile(fmt.Sprintf("^%s$", exp))
 }

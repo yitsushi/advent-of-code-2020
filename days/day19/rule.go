@@ -1,6 +1,7 @@
 package day19
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -12,7 +13,7 @@ import (
 type RuleGroup struct {
 	ID       int64
 	RuleSets []RuleSet
-	Resolved []string
+	Regexp   string
 }
 
 // RuleSet is a set if Rules.
@@ -31,7 +32,7 @@ func newRuleGroupFromString(text string) RuleGroup {
 	group := RuleGroup{
 		ID:       -1,
 		RuleSets: []RuleSet{},
-		Resolved: []string{},
+		Regexp:   "",
 	}
 
 	parts := strings.SplitN(text, ": ", 2)
@@ -63,4 +64,28 @@ func newRuleSetFromString(text string) RuleSet {
 	}
 
 	return set
+}
+
+func (r RuleSet) String() string {
+	result := []string{}
+
+	for _, rule := range r.Rules {
+		if rule.Ref == -1 {
+			result = append(result, string(rule.Value))
+		} else {
+			result = append(result, fmt.Sprintf("%d", rule.Ref))
+		}
+	}
+
+	return fmt.Sprintf("(%s)", strings.Join(result, " "))
+}
+
+func (r RuleGroup) String() string {
+	result := []string{}
+
+	for _, set := range r.RuleSets {
+		result = append(result, set.String())
+	}
+
+	return strings.Join(result, "|")
 }
