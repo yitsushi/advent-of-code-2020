@@ -22,7 +22,7 @@ type RuleSet struct {
 	RefList []int64
 }
 
-// Rule is a single byte or referense to other RuleGroup.
+// Rule is a single byte or reference to other RuleGroup.
 type Rule struct {
 	Value byte
 	Ref   int64
