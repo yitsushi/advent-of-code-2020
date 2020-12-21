@@ -1,15 +1,17 @@
 package day20
 
-import "github.com/yitsushi/advent-of-code-2020/pkg/slice"
+import (
+	"regexp"
+
+	"github.com/sirupsen/logrus"
+	"github.com/yitsushi/advent-of-code-2020/pkg/slice"
+)
 
 // Tile is a tile.
 type Tile struct {
 	ID     int
 	Data   []string
-	Top    *Tile
-	Left   *Tile
-	Bottom *Tile
-	Right  *Tile
+	Placed bool
 
 	all []string
 }
@@ -119,4 +121,133 @@ func (t *Tile) AllInBlocks() [][]string {
 	result = append(result, t.AllRight())
 
 	return result
+}
+
+// FlipX flips the tile on the X axes.
+func (t *Tile) FlipX() {
+	result := []string{}
+
+	for idx := len(t.Data) - 1; idx >= 0; idx-- {
+		result = append(result, t.Data[idx])
+	}
+
+	t.Data = result
+}
+
+// FlipY flips the tile on the Y axes.
+func (t *Tile) FlipY() {
+	for idx := 0; idx < len(t.Data); idx++ {
+		t.Data[idx] = slice.ReverseString(t.Data[idx])
+	}
+}
+
+// Rotate CCW.
+func (t *Tile) Rotate(times int) {
+	times %= 4
+
+	for ; times > 0; times-- {
+		result := make([]string, len(t.Data))
+
+		for _, line := range t.Data {
+			for idx := 0; idx < len(line); idx++ {
+				result[len(line)-idx-1] += string(line[idx])
+			}
+		}
+
+		t.Data = result
+	}
+}
+
+// CanFitRight returns with true if given tile can fit the right side of the tile
+// and if it can fit, what operations we have to do on the tile.
+func (t *Tile) CanFitRight(tile *Tile) (bool, FitInstruction) {
+	left, right := tile.LeftColumn(), tile.RightColumn()
+	top, bottom := tile.TopRow(), tile.BottomRow()
+
+	switch t.RightColumn() {
+	case left:
+		return true, FitInstruction{}
+	case slice.ReverseString(left):
+		return true, FitInstruction{FlipX: true}
+	case right:
+		return true, FitInstruction{FlipY: true}
+	case slice.ReverseString(right):
+		return true, FitInstruction{FlipX: true, FlipY: true}
+	case top:
+		return true, FitInstruction{Rotation: 1, FlipX: true}
+	case slice.ReverseString(top):
+		return true, FitInstruction{Rotation: 1}
+	case bottom:
+		return true, FitInstruction{Rotation: 1, FlipY: true, FlipX: true}
+	case slice.ReverseString(bottom):
+		return true, FitInstruction{Rotation: 1, FlipY: true}
+	}
+
+	return false, FitInstruction{}
+}
+
+// CanFitBottom returns with true if given tile can fit below the tile
+// and if it can fit, what operations we have to do on the tile.
+func (t *Tile) CanFitBottom(tile *Tile) (bool, FitInstruction) {
+	left, right := tile.LeftColumn(), tile.RightColumn()
+	top, bottom := tile.TopRow(), tile.BottomRow()
+
+	switch t.BottomRow() {
+	case left:
+		return true, FitInstruction{Rotation: 1, FlipX: true}
+	case slice.ReverseString(left):
+		return true, FitInstruction{Rotation: 1, FlipY: true, FlipX: true}
+	case right:
+		return true, FitInstruction{Rotation: 1}
+	case slice.ReverseString(right):
+		return true, FitInstruction{Rotation: 1, FlipY: true}
+	case top:
+		return true, FitInstruction{}
+	case slice.ReverseString(top):
+		return true, FitInstruction{FlipY: true}
+	case bottom:
+		return true, FitInstruction{FlipX: true}
+	case slice.ReverseString(bottom):
+		return true, FitInstruction{FlipX: true, FlipY: true}
+	}
+
+	return false, FitInstruction{}
+}
+
+// FindMonsters on a tile.
+func (t *Tile) FindMonsters() []Monster {
+	monsterTopRow := regexp.MustCompile(monsterTop)
+	monsterMiddleRow := regexp.MustCompile(monsterMiddle)
+	monsterBottomRow := regexp.MustCompile(monsterBottom)
+
+	monsters := []Monster{}
+
+	for idx := 1; idx < len(t.Data)-1; idx++ {
+		line := t.Data[idx]
+
+		indicies := monsterMiddleRow.FindAllStringIndex(line, -1)
+		if indicies == nil {
+			continue
+		}
+
+		for _, match := range indicies {
+			if !monsterTopRow.MatchString(t.Data[idx-1][match[0]:match[1]]) {
+				continue
+			}
+
+			if !monsterBottomRow.MatchString(t.Data[idx+1][match[0]:match[1]]) {
+				continue
+			}
+
+			logrus.Infof("Match found on line %d: %s", idx, line[match[0]:match[1]])
+
+			monsters = append(monsters, Monster{
+				Top:    t.Data[idx-1][match[0]:match[1]],
+				Middle: t.Data[idx][match[0]:match[1]],
+				Bottom: t.Data[idx+1][match[0]:match[1]],
+			})
+		}
+	}
+
+	return monsters
 }

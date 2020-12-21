@@ -54,7 +54,7 @@ func (d *Solver) SetInput(input io.Reader) error {
 		d.tiles = append(d.tiles, tile)
 	}
 
-	d.image.NumberOfRows = int(math.Sqrt(float64(len(d.tiles))))
+	d.image.SetGridSize(int(math.Sqrt(float64(len(d.tiles)))))
 
 	return scanner.Err()
 }
