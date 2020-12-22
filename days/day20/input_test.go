@@ -11,8 +11,6 @@ import (
 )
 
 func TestSolver_SetInput(t *testing.T) {
-	t.Skip()
-
 	example, err := test.LoadFixture("example")
 	if !assert.NoError(t, err) {
 		return
