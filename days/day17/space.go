@@ -1,20 +1,21 @@
 package day17
 
 import (
+	"github.com/yitsushi/advent-of-code-2020/pkg/generic"
 	"github.com/yitsushi/advent-of-code-2020/pkg/math"
 )
 
 // Space is a 3D space where nodes can live.
 type Space struct {
-	storage       map[string]*Node
-	neighborCache map[string][]*Node
+	storage       map[interface{}]*Node
+	neighborCache map[interface{}][]*Node
 }
 
 // NewSpace creates a new Space.
 func NewSpace() Space {
 	return Space{
-		storage:       map[string]*Node{},
-		neighborCache: map[string][]*Node{},
+		storage:       map[interface{}]*Node{},
+		neighborCache: map[interface{}][]*Node{},
 	}
 }
 
@@ -50,7 +51,7 @@ func (s *Space) Finalize() {
 }
 
 // Lookup a Node at a given coordinate.
-func (s *Space) Lookup(coordinate math.Vector) *Node {
+func (s *Space) Lookup(coordinate generic.Hashable) *Node {
 	return s.storage[coordinate.Hash()]
 }
 

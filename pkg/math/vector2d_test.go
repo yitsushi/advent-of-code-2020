@@ -63,7 +63,7 @@ func TestVector2D_Manhattan(t *testing.T) {
 func TestVector2D_Hash(t *testing.T) {
 	v := math.Vector2D{15, 33}
 
-	assert.Equal(t, "15.0000;33.0000", v.Hash())
+	assert.Equal(t, math.Vector2D{X: 15, Y: 33}, v.Hash())
 }
 
 func TestVector2D_Neighbors(t *testing.T) {

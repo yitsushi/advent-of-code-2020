@@ -10,7 +10,7 @@ import (
 func TestVector4D_Hash(t *testing.T) {
 	v := math.Vector4D{15, 33, 11, 23}
 
-	assert.Equal(t, "15.0000;33.0000;11.0000;23.0000", v.Hash())
+	assert.Equal(t, math.Vector4D{X: 15, Y: 33, Z: 11, W: 23}, v.Hash())
 }
 
 func TestVector4D_Values(t *testing.T) {

@@ -1,12 +1,19 @@
 package day17
 
-import "github.com/yitsushi/advent-of-code-2020/pkg/math"
+import (
+	"github.com/yitsushi/advent-of-code-2020/pkg/math"
+)
 
 // Node is a single power cube.
 type Node struct {
 	Active     bool
 	NextState  bool
 	Coordinate math.Vector
+}
+
+// Hash for node.
+func (n *Node) Hash() interface{} {
+	return n.Coordinate
 }
 
 // InstantSet sets the Active status without needing to finalize it.
