@@ -30,8 +30,6 @@ func TestSolver_Part2(t *testing.T) {
 }
 
 func TestSolver_Part2_real(t *testing.T) {
-	t.Skip()
-
 	example, err := test.LoadFixture("input")
 	if !assert.NoError(t, err) {
 		return
@@ -47,5 +45,5 @@ func TestSolver_Part2_real(t *testing.T) {
 	out, err := day.Part2()
 
 	assert.NoError(t, err)
-	assert.Equal(t, "", out)
+	assert.Equal(t, "3649", out)
 }
