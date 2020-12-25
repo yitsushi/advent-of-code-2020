@@ -41,3 +41,39 @@ func TestMaximumInt64(t *testing.T) {
 		})
 	}
 }
+
+func TestMinimumInt(t *testing.T) {
+	tests := []struct {
+		name string
+		list []int
+		want int
+	}{
+		{name: "empty", list: []int{}, want: 0},
+		{name: "values", list: []int{5, 4, 92, 13, 42, 52}, want: 4},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := math.MinimumInt(tt.list); got != tt.want {
+				t.Errorf("MinimumInt() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestMaximumInt(t *testing.T) {
+	tests := []struct {
+		name string
+		list []int
+		want int
+	}{
+		{name: "empty", list: []int{}, want: 0},
+		{name: "values", list: []int{5, 4, 92, 13, 42, 52}, want: 92},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := math.MaximumInt(tt.list); got != tt.want {
+				t.Errorf("MaximumInt() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
