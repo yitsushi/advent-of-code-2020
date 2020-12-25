@@ -1,7 +1,5 @@
 package math
 
-import "fmt"
-
 // Vector4D is a 3D vector.
 type Vector4D struct {
 	X float64
@@ -11,8 +9,8 @@ type Vector4D struct {
 }
 
 // Hash for cache.
-func (v Vector4D) Hash() string {
-	return fmt.Sprintf("%.4f;%.4f;%.4f;%.4f", v.X, v.Y, v.Z, v.W)
+func (v Vector4D) Hash() interface{} {
+	return v
 }
 
 // Neighbors if it's a coordinate.

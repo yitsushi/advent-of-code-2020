@@ -1,7 +1,6 @@
 package math
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -24,8 +23,8 @@ func (v *Vector2D) Rotate(angle float64) {
 }
 
 // Hash for cache.
-func (v Vector2D) Hash() string {
-	return fmt.Sprintf("%.4f;%.4f", v.X, v.Y)
+func (v Vector2D) Hash() interface{} {
+	return v
 }
 
 // Manhattan distance.

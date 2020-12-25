@@ -1,7 +1,5 @@
 package math
 
-import "fmt"
-
 // Vector3D is a 3D vector.
 type Vector3D struct {
 	X float64
@@ -10,8 +8,8 @@ type Vector3D struct {
 }
 
 // Hash for cache.
-func (v Vector3D) Hash() string {
-	return fmt.Sprintf("%.4f;%.4f;%.4f", v.X, v.Y, v.Z)
+func (v Vector3D) Hash() interface{} {
+	return v
 }
 
 // Neighbors if it's a coordinate.

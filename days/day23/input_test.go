@@ -1,26 +1,21 @@
 package day23_test
 
 import (
-	"bytes"
 	"io/ioutil"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/yitsushi/advent-of-code-2020/days/day23"
-	"github.com/yitsushi/advent-of-code-2020/test"
 )
 
 func TestSolver_SetInput(t *testing.T) {
-	t.Skip()
+	day := day23.Solver{}
 
-	example, err := test.LoadFixture("example")
+	err := day.SetInput(ioutil.NopCloser(strings.NewReader("389125467")))
 	if !assert.NoError(t, err) {
 		return
 	}
-
-	day := day23.Solver{}
-
-	day.SetInput(ioutil.NopCloser(bytes.NewReader(example)))
 
 	assert.NoError(t, err)
 }

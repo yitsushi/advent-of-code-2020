@@ -77,3 +77,28 @@ func TestMaximumInt(t *testing.T) {
 		})
 	}
 }
+
+func TestMinMaxInt(t *testing.T) {
+	tests := []struct {
+		name    string
+		list    []int
+		wantMin int
+		wantMax int
+	}{
+		{name: "empty", list: []int{}, wantMin: 0, wantMax: 0},
+		{name: "values", list: []int{5, 4, 92, 13, 42, 52}, wantMin: 4, wantMax: 92},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotMin, gotMax := math.MinMaxInt(tt.list)
+
+			if gotMin != tt.wantMin {
+				t.Errorf("MinMaxInt() = Min %v, want %v", gotMin, tt.wantMin)
+			}
+
+			if gotMax != tt.wantMax {
+				t.Errorf("MinMaxInt() = Max %v, want %v", gotMin, tt.wantMax)
+			}
+		})
+	}
+}
