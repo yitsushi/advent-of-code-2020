@@ -25,6 +25,7 @@ import (
 	"github.com/yitsushi/advent-of-code-2020/days/day22"
 	"github.com/yitsushi/advent-of-code-2020/days/day23"
 	"github.com/yitsushi/advent-of-code-2020/days/day24"
+	"github.com/yitsushi/advent-of-code-2020/days/day25"
 	"github.com/yitsushi/advent-of-code-2020/pkg/puzzle"
 )
 
@@ -56,6 +57,7 @@ func DaySelector(day int) (puzzle.Day, error) {
 		&day22.Solver{},
 		&day23.Solver{},
 		&day24.Solver{},
+		&day25.Solver{},
 	}
 
 	if len(solvers) <= day || day < 0 {
