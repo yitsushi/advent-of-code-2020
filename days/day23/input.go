@@ -1,22 +1,30 @@
 package day23
 
 import (
-	"bufio"
+	"bytes"
 	"io"
+	"io/ioutil"
 )
 
 // Solver is the main solver.
 type Solver struct {
-	input []string
+	cups []int
 }
+
+const (
+	asciiInt = 48
+)
 
 // SetInput receives the input and parses its content.
 func (d *Solver) SetInput(input io.Reader) error {
-	scanner := bufio.NewScanner(input)
+	text, _ := ioutil.ReadAll(input)
 
-	for scanner.Scan() {
-		d.input = append(d.input, scanner.Text())
+	text = bytes.TrimSpace(text)
+
+	for _, ch := range text {
+		value := ch - asciiInt
+		d.cups = append(d.cups, int(value))
 	}
 
-	return scanner.Err()
+	return nil
 }
