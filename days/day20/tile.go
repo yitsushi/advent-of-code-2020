@@ -1,9 +1,6 @@
 package day20
 
 import (
-	"regexp"
-
-	"github.com/sirupsen/logrus"
 	"github.com/yitsushi/advent-of-code-2020/pkg/slice"
 )
 
@@ -215,39 +212,35 @@ func (t *Tile) CanFitBottom(tile *Tile) (bool, FitInstruction) {
 }
 
 // FindMonsters on a tile.
-func (t *Tile) FindMonsters() []Monster {
-	monsterTopRow := regexp.MustCompile(monsterTop)
-	monsterMiddleRow := regexp.MustCompile(monsterMiddle)
-	monsterBottomRow := regexp.MustCompile(monsterBottom)
-
-	monsters := []Monster{}
+func (t *Tile) FindMonsters() int {
+	monsterCount := 0
 
 	for idx := 1; idx < len(t.Data)-1; idx++ {
 		line := t.Data[idx]
 
-		indicies := monsterMiddleRow.FindAllStringIndex(line, -1)
-		if indicies == nil {
-			continue
-		}
+		for lidx := range line[:len(line)-len(monsterMiddle)] {
+			nope := false
 
-		for _, match := range indicies {
-			if !monsterTopRow.MatchString(t.Data[idx-1][match[0]:match[1]]) {
-				continue
+			for midx := range monsterMiddle {
+				rp1c, rp1 := monsterTop[midx] == '#', monsterTop[midx]
+				rp2c, rp2 := monsterMiddle[midx] == '#', monsterMiddle[midx]
+				rp3c, rp3 := monsterBottom[midx] == '#', monsterBottom[midx]
+				rs1 := t.Data[idx-1][lidx+midx]
+				rs2 := t.Data[idx][lidx+midx]
+				rs3 := t.Data[idx+1][lidx+midx]
+
+				if (rp1c && rp1 != rs1) || (rp2c && rp2 != rs2) || (rp3c && rp3 != rs3) {
+					nope = true
+
+					break
+				}
 			}
 
-			if !monsterBottomRow.MatchString(t.Data[idx+1][match[0]:match[1]]) {
-				continue
+			if !nope {
+				monsterCount++
 			}
-
-			logrus.Infof("Match found on line %d: %s", idx, line[match[0]:match[1]])
-
-			monsters = append(monsters, Monster{
-				Top:    t.Data[idx-1][match[0]:match[1]],
-				Middle: t.Data[idx][match[0]:match[1]],
-				Bottom: t.Data[idx+1][match[0]:match[1]],
-			})
 		}
 	}
 
-	return monsters
+	return monsterCount
 }

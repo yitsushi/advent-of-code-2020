@@ -11,6 +11,7 @@ import (
 
 const (
 	numberOfCorners = 4
+	maxRotation     = 4
 )
 
 // Part1 for this day.
@@ -45,51 +46,46 @@ func (d *Solver) Part2() (string, error) {
 	for d.FindRow() {
 	}
 
-	for _, row := range d.image.Data {
-		chain := []string{}
-
-		for _, tile := range row {
-			chain = append(chain, fmt.Sprintf("%d", tile.ID))
-		}
-
-		logrus.Info(chain)
-	}
-
 	fullImage := d.image.Merge()
 
 	for _, line := range fullImage.Data {
 		logrus.Debug(line)
 	}
 
-	numberOfMonsters := 0
+	highest := 0
+	rotations := 0
 
-	for numberOfMonsters == 0 {
+	for {
 		fullImage.Rotate(1)
+		rotations++
 
-		numberOfMonsters = len(fullImage.FindMonsters())
-		if numberOfMonsters > 0 {
+		if rotations > maxRotation {
 			break
 		}
 
-		fullImage.FlipX()
-
-		numberOfMonsters = len(fullImage.FindMonsters())
-		if numberOfMonsters > 0 {
-			break
+		if res := fullImage.FindMonsters(); highest < res {
+			highest = res
 		}
 
-		fullImage.FlipX()
-		fullImage.FlipY()
-
-		numberOfMonsters = len(fullImage.FindMonsters())
-		if numberOfMonsters > 0 {
-			break
+		ops := []func(){
+			fullImage.FlipX,
+			func() {
+				fullImage.FlipX()
+				fullImage.FlipY()
+			},
+			fullImage.FlipY,
 		}
 
-		fullImage.FlipY()
+		for _, op := range ops {
+			op()
+
+			if res := fullImage.FindMonsters(); highest < res {
+				highest = res
+			}
+		}
 	}
 
-	counter := -numberOfMonsters * monsterLength
+	counter := -highest * monsterLength
 
 	for _, line := range fullImage.Data {
 		counter += strings.Count(line, "#")
